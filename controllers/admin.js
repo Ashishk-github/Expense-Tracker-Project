@@ -11,11 +11,22 @@ exports.postUser = (req, res, next) => {
   const email = req.body.email;
   const phno = req.body.phno;
   const pass = req.body.password;
-  bcrypt.hash(pass,10,function(err,hash){
-    console.log(hash);
-    const password=hash
-    User.create({name,email,phno,password});
-  })
+  let userExists=false;
+  User.findAll()
+  .then(users=>{
+    for(x of users){
+      userExists=(x.email===email || x.phno===phno);
+    }
+    if (!userExists){
+        bcrypt.hash(pass,10,function(err,hash){
+        const password=hash
+        User.create({name,email,phno,password})
+        .then(res.send(`<script>alert('Registration Successfull')</script>`));
+      })
+    }else{ 
+      res.send(`<script>alert('User Exists'); window.location.href="/page_location"</script>`)
+    }
+})
 //   User.findAll({where:{id:1}}).then(hash=>{
 
 //     console.log(hash[0].password)
