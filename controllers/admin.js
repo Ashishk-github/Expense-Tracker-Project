@@ -21,23 +21,23 @@ exports.postUser = (req, res, next) => {
         bcrypt.hash(pass,10,function(err,hash){
         const password=hash
         User.create({name,email,phno,password})
-        .then(res.send(`<script>alert('Registration Successfull')</script>`));
+        .then(res.send('Registration Successfull'))
       })
     }else{ 
-      res.send(`<script>alert('User Exists'); window.location.href="/page_location"</script>`)
+      res.send('User Exists,Please Login')
     }
 })
-//   User.findAll({where:{id:1}}).then(hash=>{
-
-//     console.log(hash[0].password)
-//   bcrypt.compare('ashish777',hash[0].password,function(err,result){
-    
-//     if(result){
-//       console.log(1);
-//     }else{
-//       console.log(0);
-//     }
-//   })
-// })
-  
 };
+exports.login=(req,res,next)=>{
+  const email=req.body.email;
+  const password=req.body.password;
+  User.findAll({where:{email:email}}).then(([hash])=>{
+        console.log(hash.email);
+        console.log(hash.password);
+      bcrypt.compare(password,hash.password,function(err,result){
+        console.log(result)
+        res.json({success:result});
+      })
+    })
+      
+}
