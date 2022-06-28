@@ -55,3 +55,7 @@ body section div button{
     padding: 0.5rem;
     margin: 0.5rem;
 }
+.errormsg{
+    color: red;
+    font-weight: 300;
+} 

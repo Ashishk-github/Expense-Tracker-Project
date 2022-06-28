@@ -21,16 +21,24 @@ function createUser(){
 }
 
 function loginUser(){
-    const email = document.getElementById('email-login').value;
-    const password = document.getElementById('password-login').value;
-    axios.post('http://localhost:3000/login',{email,password})
-    .then(res=>{
-        if(res.data.success){
-            alert('Login Successfull');
-        }else{
-            alert('Login Failed');
-        }
-    });
-
-
+    if(document.getElementById('email-login').value!='' && document.getElementById('password-login').value!=''){
+        const email = document.getElementById('email-login').value;
+        const password = document.getElementById('password-login').value;
+        axios.post('http://localhost:3000/login',{email,password})
+        .then(res=>{
+            console.log(res)
+        })
+        .then(res1=>{
+            document.getElementById('email-login').value='';
+            document.getElementById('password-login').value='';
+        })
+        .catch(err=>{
+            if(err.response.status==401) document.getElementById('login-error').innerText='*Incorrect Password';
+            else if (err.response.status==404) document.getElementById('login-error').innerText='*Email Not Found';
+            else alert('Something went wrong,Please try again')
+            // console.log(err);
+        });    
+    }else{
+        document.getElementById('login-error').innerText='*Please dont leave credentials blank';
+    }
 }
