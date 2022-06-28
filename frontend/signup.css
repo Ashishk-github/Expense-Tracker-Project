@@ -1,0 +1,56 @@
+body{
+    display: flex;
+    background-image: url("https://www.cumberlandtax.org/uploads/slide3.jpg");
+    background-size: cover;
+    background-color: rgb(89, 100, 114);
+}
+body section{
+    display: block;
+    margin-left:auto ;
+    margin-right: auto;
+    background-color:rgb(100, 80, 119,0.4);
+    margin-top: 10%;
+    color: white;
+    border-radius: 20%;
+    align-items: center;
+    padding: 2rem;
+    width: 50%;
+}
+body section form{
+    display: block;
+    margin-left:auto ;
+    margin-right: auto;
+    text-align: center;
+    
+}
+form h1{
+    margin-top: -3%;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 35px;
+}
+.label-signup{
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+}
+.input-signup{
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    border-radius: 10%;
+    margin: 0.5rem;
+    padding: 0.25rem;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+body section form button{
+    cursor: pointer;
+    border: none;
+    background-color: rgb(73, 76, 77);
+    color: white;
+    border-radius: 10%;
+    font-size: 15px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
