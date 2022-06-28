@@ -11,11 +11,12 @@
 </head>
 <body>
     <section id="signup-container">
-        <form method="POST">
+        <form action="http://localhost:3000/createuser" method="POST">
             <h1>SIGN UP</h1>
-            <label class="label-signup">USERNAME</label><br><input id="name-signup" class="input-signup"><br>
-            <label class="label-signup">EMAIL</label><br><input id="email-signup" class="input-signup"><br>
-            <label class="label-signup">PASSWORD</label><br><input id="password-signup" class="input-signup"><br>
+            <label class="label-signup">USERNAME</label><br><input id="name-signup" class="input-signup" name="name"><br>
+            <label class="label-signup">EMAIL</label><br><input id="email-signup" class="input-signup" name="email"><br>
+            <label class="label-signup">PHONE NUMBER</label><br><input id="ph-signup" class="input-signup" name="phno"><br>
+            <label class="label-signup">PASSWORD</label><br><input id="password-signup" class="input-signup" name="password"><br>
             <button type="submit">SUBMIT</button>
             <button type="submit">Existing User? Login</button>
         </form>
