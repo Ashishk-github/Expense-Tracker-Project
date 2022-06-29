@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cors=require('cors');
 const sequelize = require('./util/database');
 const User = require('./models/user');
-
+const Expense = require('./models/expenses');
 app.use(cors())
 
 const adminRoutes = require('./routes/admin');
@@ -16,6 +16,11 @@ const adminRoutes = require('./routes/admin');
 app.use(bodyParser.json());
 
 app.use(adminRoutes);
+app.use((req,res)=>{
+  res.sendFile(path.join(__dirname,`frontend/${req.url}`));
+})
+User.hasMany(Expense);
+Expense.belongsTo(User);
 sequelize
   // .sync({ force: true })
   .sync()

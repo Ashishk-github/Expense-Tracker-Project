@@ -1,10 +1,10 @@
-body{
+.authentication{
     display: flex;
     background-image: url("https://www.cumberlandtax.org/uploads/slide3.jpg");
     background-size: cover;
     background-color: rgb(89, 100, 114);
 }
-body section{
+.authentication section{
     display: block;
     margin-left:auto ;
     margin-right: auto;
@@ -17,24 +17,24 @@ body section{
     width: 70%;
     max-width: 600px;
 }
-body section div{
+.authentication section div{
     display: block;
     margin-left:auto ;
     margin-right: auto;
     text-align: center;
     
 }
-body section div h1{
+.authentication section div h1{
     margin-top: -3%;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 35px;
 }
-body section div label{
+.authentication section div label{
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 400;
 }
-body section div input{
+.authentication section div input{
     font-size: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 400;
@@ -45,7 +45,7 @@ body section div input{
     width: 80%;
     max-width: 300px;
 }
-body section div button{
+.authentication section div button{
     cursor: pointer;
     border: none;
     background-color: rgb(73, 76, 77);
@@ -59,3 +59,51 @@ body section div button{
     color: red;
     font-weight: 300;
 } 
+/*ADD EXPENSE*/
+.addexpense{
+    background-color: rgb(89, 100, 114);
+    background-image: none;
+}
+.addexpense section{
+    width: 100%;
+    background-color: rgb(62, 70, 80,0.4);
+    padding: 1%;
+    border-radius: 15%;
+    color: white;
+    text-align: center;
+
+}
+.addexpense section .user-exp{
+    width: 20%;
+    margin: 0.3%;
+    padding: 0.1%;
+    text-align: center;
+    margin-left: 6%;
+    margin-right: 6%;
+}
+.addexpense section div .label{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.addexpense section div .label span{
+    margin-left: 11%;
+    margin-right: 11%;
+}
+.addexpense section div button{
+    padding: 0.75%;
+    cursor: pointer;
+    margin: 0.5%;
+    font-size: 17px;
+    color: white;
+    border-radius: 10%;
+    background-color: rgb(34, 36, 41);
+    border: none;
+}
+.addexpense #expense-container{
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 100;
+}

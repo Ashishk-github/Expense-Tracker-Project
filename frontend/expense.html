@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD EXPENSE</title>
+    <link rel="stylesheet" href="signup.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./expense.js"></script>
+</head>
+<body class="addexpense">
+    <section id="signup-container">
+        <div method="post" action="http://localhost:3000/addexpense" type="submit">
+            <h4 class="errormsg" id="addexpense-error"></h4>
+            <h1>ADD YOUR EXPENSE</h1>
+            <div class="label">
+                <span class="">  AMOUNT   </span>
+                <span class="">DESCRIPTION</span>
+                <span class="">  CATEGORY </span>
+            </div>
+            <input id="amount" class="user-exp input-amount" name="amount">
+            <input id="description" class="user-exp input-description" name="description">
+            <select id="category" class="user-exp input-category" name="category">
+            <option value="food">FOOD</option>
+            <option value="movies">MOVIES</option>
+            <option value="miscelanous">MISCELANOUS</option>
+            </select><br>
+            <button type="submit" onclick="addExpense()">Add Expense</button>
+        </div>
+    </section>
+    <div id="expense-container"><h1>Past Expenditure</h1></div>
+</body>
+</html>

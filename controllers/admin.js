@@ -2,7 +2,7 @@ const bcrypt=require('bcrypt');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '3600s' });
+  return jwt.sign(username, process.env.TOKEN_SECRET);
 }
 exports.getUsers = (req, res, next) => {
   res.json()
@@ -32,6 +32,7 @@ exports.postUser = (req, res, next) => {
     }
 })
 };
+
 exports.login=(req,res,next)=>{
   const email=req.body.email;
   const password=req.body.password;
@@ -41,10 +42,8 @@ exports.login=(req,res,next)=>{
       if(hash.length===0) return res.sendStatus(404);
       bcrypt.compare(password,hash[0].password,function(err,result){
         if (result){
-          bcrypt.hash(hash[0].id,10,function(err,hashid){
-            const token=generateAccessToken({id:hashid});
+            const token=generateAccessToken({id:hash[0].id});
             res.json(token);  
-          })
         }else res.sendStatus(401)
       })
     })
