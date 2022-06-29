@@ -32,7 +32,7 @@ function loginUser(){
         axios.post('http://localhost:3000/login',{email,password})
         .then(res=>{
             console.log(`token=${res.data}`)
-            localStorage.setItem('token',`${res.data}`);
+            return localStorage.setItem('token',`${res.data}`);
             // axios.get('http://localhost:3000/loginpermit',{
             //     headers: {
             //       'Authorization': `Bearer ${localStorage.getItem('token')}` 
