@@ -7,6 +7,7 @@
     <title>ADD EXPENSE</title>
     <link rel="stylesheet" href="signup.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="./expense.js"></script>
 </head>
 <body class="addexpense">
@@ -27,6 +28,7 @@
             <option value="miscelanous">MISCELANOUS</option>
             </select><br>
             <button type="submit" onclick="addExpense()">Add Expense</button>
+            <button id="premium-pay" onclick="paymentgateway()">GO PREMIUM</button>
         </div>
     </section>
     <div id="expense-container"><h1>Past Expenditure</h1></div>

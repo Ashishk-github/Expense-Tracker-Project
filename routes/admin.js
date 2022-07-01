@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const adminController = require('../controllers/admin');
-
+const premiumSub=require('../services/premium');
 const expenseSevice =require('../services/expenses');
 
 function auth(req,res,next){
@@ -31,5 +31,7 @@ router.post('/login',adminController.login);
 
 router.post('/addexpense',auth,expenseSevice.addExp)
 router.get('/addexpense',auth,expenseSevice.getExp)
+router.post('/createorder',premiumSub.createOrder)
+router.post('/verifyorder',premiumSub.verifyOrder)
 
 module.exports = router;
