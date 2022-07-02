@@ -10,7 +10,7 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="./expense.js"></script>
 </head>
-<body class="addexpense">
+<body class="addexpense" id="addexpense">
     <section id="signup-container">
         <div method="post" action="http://localhost:3000/addexpense" type="submit">
             <h4 class="errormsg" id="addexpense-error"></h4>
@@ -31,6 +31,13 @@
             <button id="premium-pay" onclick="paymentgateway()">GO PREMIUM</button>
         </div>
     </section>
-    <div id="expense-container"><h1>Past Expenditure</h1></div>
+    <table id="leaderboard" class="leaderboard"><thead>
+        <tr>
+            <th>Name</th>
+            <th>Expense</th>
+        </tr></thead>
+    <tbody id="userslist">
+    </tbody></table>
+    <div id="expense-container"><h1>Past Expenditure</h1><br><h2>Total:0</h2></div>
 </body>
 </html>

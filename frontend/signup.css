@@ -63,6 +63,7 @@
 .addexpense{
     background-color: rgb(89, 100, 114);
     background-image: none;
+    display: relative;
 }
 .addexpense section{
     width: 100%;
@@ -101,9 +102,23 @@
     border: none;
 }
 .addexpense #expense-container{
-    width: 100%;
+    width: 70%;
     color: white;
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
+}
+#leaderboard{
+    position: fixed;
+    background-color: wheat;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 10%;
+    border-bottom: 1px solid grey;
+    font-size: 150%;
+    display: none;
+    width: 30%;
+    max-width: 50%;
+    padding: 1rem;
+    top: 37%;
+    left: 70%;
 }

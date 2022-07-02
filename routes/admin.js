@@ -6,6 +6,7 @@ const express = require('express');
 const adminController = require('../controllers/admin');
 const premiumSub=require('../services/premium');
 const expenseSevice =require('../services/expenses');
+const premium=require('../services/premiumfeatures');
 
 function auth(req,res,next){
     const authHeader = req.headers['authorization']
@@ -31,7 +32,7 @@ router.post('/login',adminController.login);
 
 router.post('/addexpense',auth,expenseSevice.addExp)
 router.get('/addexpense',auth,expenseSevice.getExp)
-router.post('/createorder',premiumSub.createOrder)
-router.post('/verifyorder',premiumSub.verifyOrder)
-
+router.post('/createorder',auth,premiumSub.createOrder)
+router.post('/verifyorder',auth,premiumSub.verifyOrder)
+router.get('/getpremium',auth,premium.getPremium)
 module.exports = router;

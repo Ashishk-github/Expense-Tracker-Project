@@ -15,6 +15,7 @@ exports.postUser = (req, res, next) => {
   const email = req.body.email;
   const phno = req.body.phno;
   const pass = req.body.password;
+  const totalexp=0;
   let userExists=false;
   User.findAll()
   .then(users=>{
@@ -24,7 +25,7 @@ exports.postUser = (req, res, next) => {
     if (!userExists){
         bcrypt.hash(pass,10,function(err,hash){
         const password=hash
-        User.create({name,email,phno,password})
+        User.create({name,email,phno,password,totalexp})
         .then(res.send('Registration Successfull'))
       })
     }else{ 

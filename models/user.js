@@ -13,8 +13,14 @@ const User = sequelize.define('user', {
   email: Sequelize.STRING,
   phno:Sequelize.STRING,
   password:Sequelize.STRING,
-  orderid:Sequelize.STRING,
-  premium:Sequelize.BOOLEAN
+  totalexp:{
+    type:Sequelize.INTEGER,
+    defaultValue:0
+  },
+  premium:{
+    type:Sequelize.BOOLEAN,
+    defaultValue:false
+  }
 });
 
 module.exports = User;
