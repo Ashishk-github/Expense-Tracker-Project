@@ -29,7 +29,9 @@ const router = express.Router();
 router.post('/createuser',adminController.postUser);
 
 router.post('/login',adminController.login);
-router.post('/password/forgotpassword',adminController.setPassword)
+router.post('/password/forgotpassword',adminController.getResetMail)
+router.get('/password/resetpassword/:uuid',adminController.setPassword)
+router.post('/password/resetpassword/:uuid',adminController.updatePassword)
 router.post('/addexpense',auth,expenseSevice.addExp)
 router.get('/addexpense',auth,expenseSevice.getExp)
 router.post('/createorder',auth,premiumSub.createOrder)
