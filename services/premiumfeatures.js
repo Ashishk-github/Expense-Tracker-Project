@@ -11,3 +11,13 @@ exports.getPremium=async (req,res,next)=>{
         res.json();
     }
 }
+exports.getExp=async (req,res,next)=>{
+
+    const expenses=await Expense.findAll({where:{userId:req.body.id}});
+    const user=await User.findByPk(req.user.id);
+    if(user.premium){
+        res.json({expenses});
+    }else{
+        res.json();
+    }
+}

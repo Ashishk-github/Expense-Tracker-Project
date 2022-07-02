@@ -29,10 +29,12 @@ const router = express.Router();
 router.post('/createuser',adminController.postUser);
 
 router.post('/login',adminController.login);
-
+router.post('/password/forgotpassword',adminController.setPassword)
 router.post('/addexpense',auth,expenseSevice.addExp)
 router.get('/addexpense',auth,expenseSevice.getExp)
 router.post('/createorder',auth,premiumSub.createOrder)
 router.post('/verifyorder',auth,premiumSub.verifyOrder)
 router.get('/getpremium',auth,premium.getPremium)
+router.post('/getpremiumexpense',auth,premium.getExp)
+
 module.exports = router;

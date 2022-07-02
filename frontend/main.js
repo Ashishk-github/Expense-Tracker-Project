@@ -20,6 +20,7 @@ function createUser(){
         document.getElementById('email-signup').value='';
         document.getElementById('ph-signup').value='';
         document.getElementById('password-signup').value='';
+        location.href('http://localhost:3000/login.html');
     })
     .catch(err=>console.log(err));
     
@@ -51,4 +52,15 @@ function loginUser(){
     }else{
         document.getElementById('login-error').innerText='*Please dont leave credentials blank';
     }
+}
+
+async function sendMail(){
+    try{
+        const email=document.getElementById('email-reset').value;
+        const res=await axios.post('http://localhost:3000/password/forgotpassword',{email});
+        console.log(res);
+}
+    catch{
+
+}
 }

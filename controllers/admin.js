@@ -50,3 +50,8 @@ exports.login=(req,res,next)=>{
     })
       
 }
+
+exports.setPassword=(req,res,next)=>{
+  email=req.body.email;
+  res.json({success:true});
+}

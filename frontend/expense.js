@@ -1,4 +1,4 @@
-const tbody=document.getElementById('userslist');
+const table=document.getElementById('leaderboard');
 window.addEventListener('DOMContentLoaded',showExpenseOnScreen());
 
 function postVerification(x){
@@ -22,6 +22,7 @@ async function showPremiumFeatures(){
         return((b.totalexp)-(a.totalexp))
     });
     console.log(users);
+    const tbody=document.getElementById('userslist');
     tbody.innerHTML=``;
 
     for(x of usersort){
@@ -34,6 +35,16 @@ async function showPremiumFeatures(){
         tr.appendChild(tdname);
         tr.appendChild(tdexp);
         tbody.appendChild(tr);
+    }
+    tbody.onclick=async ()=>{
+        const target=event.target.parentNode.id;
+        console.log(target);
+        if(!Number.isInteger(parseInt(target))) return;
+        const exp=await axios.post('http://localhost:3000/getpremiumexpense',{id:target},{
+            headers: {
+                      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                    }})
+        showPremiumExpenseOnScreen(exp.data.expenses);
     }
 
 }
@@ -77,6 +88,25 @@ async function showExpenseOnScreen(){
     console.log(4)
 
 }
+
+async function showPremiumExpenseOnScreen(res){
+    showPremiumFeatures();
+    console.log(res);
+    const div=document.getElementById('expense-container');
+    div.innerHTML='<h1>Past Expenditure</h1>';
+    for(x of res){
+        const li=document.createElement('li');
+        li.innerText=`${x.amount}---${x.description}---${x.category}`
+        div.appendChild(li);
+    }
+    const li=document.createElement('li');
+    console.log(res);
+    li.innerText=`Total:${res[res.length-1].total}`
+    div.appendChild(li);
+    console.log(4)
+
+}
+
 var options = {
 	"key": "rzp_test_0kDo7gsnQPiQjX",
 	"amount": "100",
@@ -145,8 +175,3 @@ async function paymentgateway(e){
 
 }
 // console.log(document.getElementById('users-table'))
-tbody.onclick=()=>{
-    const target=e.target.id;
-    console.log(1)
-    console.log(target)
-}

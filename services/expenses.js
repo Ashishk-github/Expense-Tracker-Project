@@ -6,7 +6,7 @@ exports.addExp=async (req,res)=>{
     const description=req.body.description;
     const category=req.body.category;
     const user=await User.findByPk(req.user.id);
-    const totalexp=user.totalexp+amount;
+    const totalexp=parseInt(user.totalexp)+parseInt(amount);
     user.update({totalexp:totalexp});
     console.log(2);
     const res1=await Expense.create({
@@ -19,9 +19,6 @@ exports.addExp=async (req,res)=>{
     res.json(res1);
 }
 exports.getExp=(req,res)=>{
-    const amount=req.body.amount;
-    const description=req.body.description;
-    const category=req.body.category;
     Expense.findAll({where:{userId:req.user.id}})
     .then(res1=>res.json(res1));
 }
