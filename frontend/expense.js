@@ -1,5 +1,25 @@
 const table=document.getElementById('leaderboard');
-window.addEventListener('DOMContentLoaded',showExpenseOnScreen());
+var page=1;
+var pageLast=1;
+var expenses=[];
+
+window.addEventListener('DOMContentLoaded',async ()=>{
+    if(!localStorage.getItem('EPP')) localStorage.setItem('EPP',10);
+    else document.getElementById('EPP').value=localStorage.getItem('EPP');
+    const res=await axios.get('http://localhost:3000/addexpense',{
+        headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                }})
+    expenses=res.data;
+    showExpenseOnScreen();
+});
+
+function changeEPP(){
+    EPP=document.getElementById('EPP').value;
+    console.log(EPP);
+    localStorage.setItem('EPP',EPP);
+    showExpenseOnScreen();
+}
 
 function postVerification(x){
     if(x.data.success){
@@ -74,45 +94,46 @@ function addExpense(){
 }}).then(res=>{
     document.getElementById('amount').value='';
     document.getElementById('description').value='';
+    // console.log(res.data);
+    expenses.push(res.data);
     showExpenseOnScreen();
 })
 }
 async function showExpenseOnScreen(){
-    showPremiumFeatures();
-    const res=await axios.get('http://localhost:3000/addexpense',{
-        headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}` 
-                }})
-    console.log(res)
-    const div=document.getElementById('expense-container');
-    div.innerHTML='<h1>Past Expenditure</h1>';
-    for(x of res.data){
-        const li=document.createElement('li');
-        li.innerText=`${x.amount}---${x.description}---${x.category}`
-        div.appendChild(li);
-    }
-    const li=document.createElement('li');
-    console.log(res.data);
-    li.innerText=`Total:${res.data[res.data.length-1].total}`
-    div.appendChild(li);
-    console.log(4)
+    const expensePerPage=localStorage.getItem('EPP');
+    document.getElementById('pageno').innerText=`${page}`;
+    pageLast=Math.ceil(expenses.length/expensePerPage);
+    showPremiumExpenseOnScreen(expenses.slice((page-1)*expensePerPage,page*expensePerPage));
+    // console.log(res)
+    // const div=document.getElementById('expense-container');
+    // div.innerHTML='<h1>Past Expenditure</h1>';
+    // for(x of res.data){
+    //     const li=document.createElement('li');
+    //     li.innerText=`${x.amount}---${x.description}---${x.category}`
+    //     div.appendChild(li);
+    // }
+    // const li=document.createElement('li');
+    // console.log(res.data);
+    // li.innerText=`Total:${res.data[res.data.length-1].total}`
+    // div.appendChild(li);
+    // console.log(4)
 
 }
 
-async function showPremiumExpenseOnScreen(res){
+async function showPremiumExpenseOnScreen(res1){
     showPremiumFeatures();
-    console.log(res);
+    // console.log(res1);
     const div=document.getElementById('expense-container');
     div.innerHTML='<h1>Past Expenditure</h1>';
-    for(x of res){
+    for(x of res1){
         const li=document.createElement('li');
         li.innerText=`${x.amount}---${x.description}---${x.category}`
         div.appendChild(li);
     }
-    const li=document.createElement('li');
-    console.log(res);
-    li.innerText=`Total:${res[res.length-1].total}`
-    div.appendChild(li);
+    // const li=document.createElement('li');
+    // console.log(res1);
+    // // li.innerText=`Total:${res1[res1.length-1].total}`
+    // div.appendChild(li);
     console.log(4)
 
 }
@@ -156,7 +177,6 @@ var options = {
 	}
 };
 
-// console.log(razorpayObject);
 async function paymentgateway(e){
     console.log('started')
     const order=await axios.post('http://localhost:3000/createorder',{
@@ -184,4 +204,42 @@ async function paymentgateway(e){
 });
 
 }
-// console.log(document.getElementById('users-table'))
+async function downloadExp(){
+    try{
+        const urlResponse=await axios.get('http://localhost:3000/download',{
+            headers: {
+                      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                    }
+                });
+        if(urlResponse.status===404) return alert(`${urlResponse.data}`)
+        console.log(urlResponse)
+        window.open(urlResponse.data.fileURL.location);
+        }
+    catch(error){
+        console.log(error);
+    }
+}
+async function pagination(){
+    const target=event.target.id;
+    console.log(target,event.target,event);
+    switch(target){
+        case 'first':
+            page=1;
+            showExpenseOnScreen();
+            break;
+        case 'prev':
+            page=(page>1)?page-1:page
+            showExpenseOnScreen();
+            break;
+        case 'next':
+            page=(page<(pageLast))?page+1:page
+            showExpenseOnScreen();
+            break;
+        case 'last':
+            page=pageLast;
+            showExpenseOnScreen();
+            break;
+        default:
+            break;
+    }
+}

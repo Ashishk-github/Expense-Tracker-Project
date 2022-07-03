@@ -40,10 +40,24 @@
     </tbody></table>
     <div id="expense-container"><h1>Past Expenditure</h1><br><h2>Total:0</h2>
     </div>
+    <div class="pagination" id="pagination" onclick="pagination()">
+        <button id="first"> << </button>
+        <button id="prev"> < </button>
+        <span id="pageno"></span>
+        <button id="next"> > </button>
+        <button id="last"> >> </button>
+    </div>
+    <select id="EPP" onchange="changeEPP()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="40">40</option>
+    </select>
     <div class="premium-feature-buttons" id="premium-feature-buttons">
         <button id="daily">Daily</button>
         <button id="weekly">Weekly</button>
         <button id="monthly">Monthly</button>
     </div>
+    <button onclick="downloadExp()">DOWNLOAD EXPENSE</button>
 </body>
 </html>

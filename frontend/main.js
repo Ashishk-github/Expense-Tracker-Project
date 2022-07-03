@@ -20,7 +20,7 @@ function createUser(){
         document.getElementById('email-signup').value='';
         document.getElementById('ph-signup').value='';
         document.getElementById('password-signup').value='';
-        location.href('http://localhost:3000/login.html');
+        location.href=('http://localhost:3000/login.html');
     })
     .catch(err=>console.log(err));
     
