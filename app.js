@@ -15,7 +15,7 @@ const Req = require('./models/forgotReq');
 app.use(cors())
 
 const adminRoutes = require('./routes/admin');
-
+app.use(bodyParser.urlencoded({limit:'5000mb',extended:true,parameterLimit:10000000000}));
 app.use(bodyParser.json());
 
 app.use(adminRoutes);

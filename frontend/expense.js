@@ -15,7 +15,7 @@ async function showPremiumFeatures(){
     console.log(features.data);
     if(features.data.length===0) return;
     document.getElementById('addexpense').style.backgroundColor=features.data.backgroundColor
-    document.getElementById('premium-pay').style.display="none"
+    document.getElementById('premium-pay').style.display="none";
     document.getElementById('leaderboard').style.display="block";
     const users=features.data.users
     const usersort=users.sort((a,b)=>{
@@ -46,7 +46,17 @@ async function showPremiumFeatures(){
                     }})
         showPremiumExpenseOnScreen(exp.data.expenses);
     }
-
+    console.log(document.getElementById('premium-feature-buttons'))
+    const timelyreport=document.getElementById('premium-feature-buttons');
+    timelyreport.style.display="block";
+    timelyreport.onclick=async ()=>{
+        const target=(event.target.id);
+        axios.post('http://localhost:3000/getpremiumreport',{time:target},{
+            headers: {
+                      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                    }})
+    };
+    
 }
 
 function addExpense(){

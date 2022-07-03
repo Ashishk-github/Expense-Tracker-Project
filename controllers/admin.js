@@ -23,7 +23,7 @@ exports.postUser = (req, res, next) => {
   User.findAll()
   .then(users=>{
     for(x of users){
-      userExists=(x.email===email || x.phno===phno);
+      userExists=(x.email===email || x.phno===phno) || userExists;
     }
     if (!userExists){
         bcrypt.hash(pass,10,function(err,hash){
@@ -82,11 +82,10 @@ exports.setPassword=async (req,res,next)=>{
     // console.log(request)
     if(!request.isActive) res.send('Link has Expired');
     res.send(
-      `<form action='/password/resetpassword/${uuid}' method='POST'>
+      `<form method="POST">
       <label>NEW PASSWORD</label><br>
-<input type="password" name="password"></input>
-<input name="uuid" value="${uuid}"></input><br>
-<button type="submit">SET</button>
+<input type="text" name="password" id="password"><br>
+<input type="submit" value="SET">
     </form>`)
   }
   catch{
@@ -97,17 +96,17 @@ exports.updatePassword=async (req,res)=>{
   try{
     console.log(req.body)
     const password=req.body.password;
-    const uuid=req.body.uuid
+    const uuid=req.params.uuid;
     console.log(password,uuid);
     bcrypt.hash(password,10,async function(err,hash){
       const request=await Req.findByPk(uuid);
-      console.log(request);
+      // console.log(request);
       const userId=request.userId;
-      request.update({isActive:false});
-      request.save();
+      await request.update({isActive:false});
+      await request.save();
       const user=await User.findByPk(userId);
-      user.update({password:password});
-      user.save();
+      await user.update({password:hash});
+      await user.save();
       res.redirect('/login.html');
     })
   }
