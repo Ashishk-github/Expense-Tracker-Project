@@ -1,4 +1,3 @@
-const Expense = require('../models/expenses');
 const Razorpay = require('razorpay');
 const Orders = require('../models/orders');
 const User = require('../models/user');
@@ -29,24 +28,30 @@ exports.createOrder=(req,res,next)=>{
         })
 }
 exports.verifyOrder=async (req,res,next)=>{
-    const {order_id,payment_id}=req.body;
-    const razorpay_signature=req.headers['x-razorpay-signature'];
-    console.log(order_id,payment_id)
-    let hmac=crypto.createHmac('sha256',process.env.KEY_SECRET);
-    hmac.update(order_id+"|"+payment_id);
-    const generated_signature=hmac.digest('hex');
-    console.log(generated_signature)
-    console.log(razorpay_signature);
-    if(razorpay_signature===generated_signature){
-        const user=await User.findByPk(req.user.id)
-        await user.update({premium:true});
-        await user.save();
-        const order=await Orders.findByPk(order_id);
-        await order.update({premium:true});
-        await order.save();
-        res.json({success:true,message:"Payment successfull"});
-
-    }else{
-        res.json({success:false,message:"Payment verification failed"});
+    try{
+        const {order_id,payment_id}=req.body;
+        const razorpay_signature=req.headers['x-razorpay-signature'];
+        console.log(order_id,payment_id)
+        let hmac=crypto.createHmac('sha256',process.env.KEY_SECRET);
+        hmac.update(order_id+"|"+payment_id);
+        const generated_signature=hmac.digest('hex');
+        console.log(generated_signature)
+        console.log(razorpay_signature);
+        if(razorpay_signature===generated_signature){
+            const user=await User.findByPk(req.user.id)
+            await user.update({premium:true});
+            await user.save();
+            const order=await Orders.findByPk(order_id);
+            await order.update({premium:true});
+            await order.save();
+            res.json({success:true,message:"Payment successfull"});
+    
+        }else{
+            res.json({success:false,message:"Payment verification failed"});
+        }
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
     }
+    
 }

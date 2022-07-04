@@ -3,27 +3,25 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const uuid=require('uuid');
 const Req = require('../models/forgotReq');
-const { request } = require('express');
 function generateAccessToken(username) {
   return jwt.sign(username, process.env.TOKEN_SECRET);
 }
-exports.getUsers = (req, res, next) => {
-  res.json()
-};
 
-exports.postUser = (req, res, next) => {
+exports.postUser = async (req, res, next) => {
   // console.log(req.body);
-  
-  const name = req.body.name;
+  try{
+    const name = req.body.name;
   const email = req.body.email;
   const phno = req.body.phno;
   const pass = req.body.password;
   const totalexp=0;
   let userExists=false;
-  User.findAll()
-  .then(users=>{
+  const users=await User.findAll()
     for(x of users){
-      userExists=(x.email===email || x.phno===phno) || userExists;
+      if(x.email===email || x.phno===phno){
+        userExists=true;
+        break;
+      } 
     }
     if (!userExists){
         bcrypt.hash(pass,10,function(err,hash){
@@ -34,13 +32,19 @@ exports.postUser = (req, res, next) => {
     }else{ 
       res.send('User Exists,Please Login')
     }
-})
+}
+catch(error){
+    console.log(error);
+    res.sendStatus(500);
+}
+  
 };
 
-exports.login=(req,res,next)=>{
+exports.login=async (req,res,next)=>{
+  try{
   const email=req.body.email;
   const password=req.body.password;
-  User.findAll({where:{email:email}}).then((hash)=>{
+  const hash=await User.findAll({where:{email:email}})
         // console.log(hash.email);
         // console.log(hash.password);
       if(hash.length===0) return res.sendStatus(404);
@@ -50,7 +54,10 @@ exports.login=(req,res,next)=>{
             res.json(token);  
         }else res.sendStatus(401)
       })
-    })
+  }catch(error){
+    console.log(error);
+    res.sendStatus(500);
+}
       
 }
 
@@ -69,9 +76,10 @@ exports.getResetMail=async (req,res,next)=>{
     //send the following uuid number through mail
     res.send("Please follow the reset link sent to your email");
   }
-  catch{
-    console.error();
-  }
+  catch(error){
+    console.log(error);
+    res.sendStatus(500);
+}
 }
 
 exports.setPassword=async (req,res,next)=>{
@@ -88,9 +96,10 @@ exports.setPassword=async (req,res,next)=>{
 <input type="submit" value="SET">
     </form>`)
   }
-  catch{
-    console.error();
-  }
+  catch(error){
+    console.log(error);
+    res.sendStatus(500);
+}
 }
 exports.updatePassword=async (req,res)=>{
   try{
@@ -110,7 +119,8 @@ exports.updatePassword=async (req,res)=>{
       res.redirect('/login.html');
     })
   }
-  catch{
-    console.error();
-  }
+  catch(error){
+    console.log(error);
+    res.sendStatus(500);
+}
 }

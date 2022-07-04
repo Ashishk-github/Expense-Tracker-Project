@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGN UP</title>
+    <link rel="stylesheet" href="signup.css">
+    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="authentication">
+    <section id="signup-container">
+        <div >
+            <h4 class="errormsg" id="signup-error"></h4>
+            <h1>SIGN UP</h1>
+            <label class="label-signup">USERNAME</label><br><input id="name-signup" class="input-signup" name="name"><br>
+            <label class="label-signup">EMAIL</label><br><input id="email-signup" class="input-signup" name="email"><br>
+            <label class="label-signup">PHONE NUMBER</label><br><input id="ph-signup" class="input-signup" name="phno"><br>
+            <label class="label-signup">PASSWORD</label><br><input id="password-signup" class="input-signup" name="password" type="password"><br>
+            <button onclick="createUser()">SUBMIT</button>
+            <button onclick="location.href='./login.html'">Existing User? Login</button>
+        </div>
+    </section>
+</body>
+</html>

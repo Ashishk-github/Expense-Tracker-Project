@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESET PASSWORD</title>
+    <link rel="stylesheet" href="signup.css">
+    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="authentication">
+    <section id="signup-container">
+        <div >
+            <h4 class="errormsg" id="reset-error"></h4>
+            <h1>RESET PASSWORD</h1>
+            <label class="label-login">EMAIL</label><br><input id="email-reset" class="input-login" name="email"><br>
+            <button id="resetpassword" onclick="sendMail()">Send Mail</button>
+        </div>
+    </section>
+</body>
+</html>

@@ -9,7 +9,10 @@ const Expense = sequelize.define('expense', {
     allowNull: false,
     primaryKey: true
   },
-  amount: Sequelize.INTEGER,
+  amount:{
+    type:Sequelize.INTEGER,
+    defaultValue:0
+  },
   description: Sequelize.STRING,
   category:Sequelize.STRING,
   total:{

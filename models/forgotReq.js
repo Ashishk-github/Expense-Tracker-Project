@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-const User = sequelize.define('forgotrequests', {
+const Req = sequelize.define('forgotrequests', {
   id: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -12,4 +12,4 @@ const User = sequelize.define('forgotrequests', {
 
 });
 
-module.exports = User;
+module.exports = Req;
